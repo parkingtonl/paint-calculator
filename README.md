@@ -1,2 +1,4 @@
-# repos
-Configured Test Project
+# borwell-challenge
+Borwell Software Challenge
+
+The repository containing the solution files
