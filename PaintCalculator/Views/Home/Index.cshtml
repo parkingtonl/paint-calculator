@@ -8,38 +8,74 @@
         <div class="col-sm-12">
             <h3>Information</h3>
             <p>
-                The software is written in Net Core 3.1 (all previous versions are end of life and out of support), using Bootstrap 4 and jQuery, and takes the dimensions (using imperial units) of a room as input then outputs the following:
+                The software is written in Net Core 3.1 (all previous versions are end of life and out of support), using Bootstrap 4 and jQuery, and takes the dimensions (using metric units) of a room as input then outputs the following:
                 <ul>
                     <li>Area of the floor.</li>
                     <li>Amount of paint required to paint the walls.</li>
                     <li>Volume of the room.</li>
                 </ul>
-                The amount of paint required to cover an area depends on the paint. An internal constant value is assumed which could be calibrated in a later version of the software. Furthe improvements include ability to choose metric units.
+                The amount of paint required to cover an area depends on the paint. An internal constant value is assumed which could be calibrated in a later version of the software. Furthe improvements include ability to choose imperial units.
             </p>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-12">
             <h3>User Instructions</h3>
-            <p>Simply enter the required height, width, and depth and click Submit. If something goes wrong (eg invalid data), simply try again!</p>
+            <p>Simply enter the required length, width, and height and click Submit. If something goes wrong (eg invalid data), simply try again!</p>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-sm-3">
+            <label for="Length">Length (m)</label>
+            <input type="text" class="form-control" id="txt-length" maxLength="10">
+        </div>
+        <div class="form-group col-sm-3">
+            <label for="Width">Width (m)</label>
+            <input type="text" class="form-control" id="txt-width" maxLength="10">
+        </div>
+        <div class="form-group col-sm-3">
+            <label for="Height">Height (m)</label>
+            <input type="text" class="form-control" id="txt-height" maxLength="10">
+        </div>
+        <div class="form-group col-sm-1">
+            <label for="Cancel">&nbsp;</label>
+            <button type="button" class="btn btn-primary form-control" id="btn-cancel">Cancel</button>
+        </div>
+        <div class="form-group col-sm-1">
+            <label for="Submit">&nbsp;</label>
+            <button type="button" class="btn btn-primary form-control" id="btn-submit">Submit</button>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-sm-3">
+            <label for="Area">Area of the floor</label>
+            <input type="text" class="form-control" id="txt-area" maxLength="10">
+        </div>
+        <div class="form-group col-sm-3">
+            <label for="Paint">Amount of paint required to paint the walls</label>
+            <input type="text" class="form-control" id="txt-paint" maxLength="10">
+        </div>
+        <div class="form-group col-sm-3">
+            <label for="Volume">Volume of the room</label>
+            <input type="text" class="form-control" id="txt-volume" maxLength="10">
         </div>
     </div>
 </div>
+@section Scripts {
+    <script>
+        // These are Bootstrap 4 buttons and jQuery is used to wire up the click events using each button id
+        $('#btn-submit').on('click', function (e) {
+                
+                
 
-
-
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-
-    @*<button type="button" class="btn btn-primary">Primary</button> - Test Bootstrap working   *@
-</div>
-
-@*@section Scripts {
-        <script>
-        $(function () {
-          alert("Test");
         });
-        </script> - Test JQuery working
-    }*@
+        $('#btn-cancel').on('click', function (e) {
+            $('#txt-length').val('');
+            $('#txt-width').val('');
+            $('#txt-height').val('');
+        });
+
+
+    </script>
+}
