@@ -1,4 +1,5 @@
-﻿<div class="jumbotron text-center">
+﻿@*@model PaintCalculator.Models.PaintModel  - Note cannot use this without a working database connection which is not really required      *@
+<div class="jumbotron text-center">
     <h1>Borwell Software Challenge - Paint Calculator</h1>
     <p>Solution by Lance Parkington 5/03/2020</p>
 </div>
@@ -69,7 +70,13 @@
             $('#txt-area').val('1.1');
             $('#txt-paint').val('2.2');
             $('#txt-volume').val('3.3');
-
+            validate();
+            //if (validate) {
+            //    alert("true");
+            //}
+            //else {
+            //    alert("false");
+            //}
         });
         $('#btn-cancel').on('click', function (e) {
             $('#txt-length').val('');
@@ -79,7 +86,20 @@
             $('#txt-paint').val('');
             $('#txt-volume').val('');
         });
-
-
+        function validate() {
+            var regexp = /^\d+\.?\d{0,2}$/; 
+            var length = $('#txt-length').val().toString();
+            var width = $('#txt-width').val().toString();
+            var height = $('#txt-height').val().toString();
+            var valid = false;
+            if (regexp.test(length) == true) {
+                if (regexp.test(width) == true) {
+                    if (regexp.test(height) == true) {
+                        valid = true;
+                    }
+                }
+            }
+            return valid);
+        }
     </script>
 }
