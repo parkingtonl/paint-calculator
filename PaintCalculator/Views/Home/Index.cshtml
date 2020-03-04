@@ -21,7 +21,7 @@
     <div class="row">
         <div class="col-sm-12">
             <h3>User Instructions</h3>
-            <p>Simply enter the required length, width, and height and click Submit. If something goes wrong (eg invalid data), simply try again!</p>
+            <p>Simply enter the required length, width, and height and click Submit. To cancel, click Cancel which clears the data. If something goes wrong (eg invalid data), simply try again!</p>
         </div>
     </div>
     <div class="form-row">
@@ -49,16 +49,16 @@
 
     <div class="form-row">
         <div class="form-group col-sm-3">
-            <label for="Area">Area of the floor</label>
-            <input type="text" class="form-control" id="txt-area" maxLength="10">
+            <label for="Area">Area</label>
+            <input type="text" class="form-control" id="txt-area" maxLength="10" readonly>
         </div>
         <div class="form-group col-sm-3">
-            <label for="Paint">Amount of paint required to paint the walls</label>
-            <input type="text" class="form-control" id="txt-paint" maxLength="10">
+            <label for="Paint">Paint</label>
+            <input type="text" class="form-control" id="txt-paint" maxLength="10" readonly>
         </div>
         <div class="form-group col-sm-3">
-            <label for="Volume">Volume of the room</label>
-            <input type="text" class="form-control" id="txt-volume" maxLength="10">
+            <label for="Volume">Volume</label>
+            <input type="text" class="form-control" id="txt-volume" maxLength="10" readonly>
         </div>
     </div>
 </div>
@@ -66,14 +66,18 @@
     <script>
         // These are Bootstrap 4 buttons and jQuery is used to wire up the click events using each button id
         $('#btn-submit').on('click', function (e) {
-                
-                
+            $('#txt-area').val('1.1');
+            $('#txt-paint').val('2.2');
+            $('#txt-volume').val('3.3');
 
         });
         $('#btn-cancel').on('click', function (e) {
             $('#txt-length').val('');
             $('#txt-width').val('');
             $('#txt-height').val('');
+            $('#txt-area').val('');
+            $('#txt-paint').val('');
+            $('#txt-volume').val('');
         });
 
 
