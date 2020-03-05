@@ -31,9 +31,9 @@ namespace PaintCalculator.Controllers
             var length = 0M;
             var width = 0M;
             var height = 0M;
-            var factor = 3.321M;
+            var factor = 3.321M; // represents the coverage of paint
 
-            if (!ModelState.IsValid )
+            if (!ModelState.IsValid ) // Standard test for modek data
             {
                 return Json(new { Success = false, Message = "Error in calculator." });
             }
@@ -44,7 +44,7 @@ namespace PaintCalculator.Controllers
                 decimal.TryParse(paintViewModel.Width, out width);
                 decimal.TryParse(paintViewModel.Height, out height);
                 paintViewModel.Area = String.Format("{0:0.#####}", length * width);
-                paintViewModel.Paint = String.Format("{0:0.#####}", 2 * height * ( length + width) * factor);
+                paintViewModel.Paint = String.Format("{0:0.#####}", 2 * height * ( length + width) * factor); // factor represents the coverage of paint
                 paintViewModel.Volume = String.Format("{0:0.#####}", length * width * height);
             }
 

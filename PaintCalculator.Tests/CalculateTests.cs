@@ -110,6 +110,35 @@ namespace PaintCalculator.Tests
             Assert.AreEqual(result.Volume, (length * width * height).ToString());
         }
 
+        [Test]
+        public void TestNullOrMissingData()
+        {
+            // Arrange
+            PaintModel model = new PaintModel // model uses numbers as string since also used on front end
+            {
+                Length = null,
+                Width = null,
+                Height = null
+            };
+
+            var logger = new Object() as ILogger<HomeController>;
+            var ctrlr = new HomeController(logger);
+
+            // Act
+            var jsonResult = (JsonResult)ctrlr.Calculate(model); // this is the method being tested in the controller
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            Result result = serializer.Deserialize<Result>(serializer.Serialize(jsonResult.Value));
+
+            // Assert
+            Assert.IsNotNull(jsonResult.Value);
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.Volume);
+            Assert.AreEqual(result.Success, true);
+            Assert.AreEqual(result.Area, "0");
+            Assert.AreEqual(result.Paint, "0");
+            Assert.AreEqual(result.Volume, "0");
+        }
+
         public class Result
         {
             public bool Success;
