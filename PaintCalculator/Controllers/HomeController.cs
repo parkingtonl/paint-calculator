@@ -53,7 +53,7 @@ namespace PaintCalculator.Controllers
                 return Json(new { Success = false, Length = paintViewModel.Length, Message = $"Error calculating length. {e.Message}" });
             }
 
-            return Json(new { Success = true, Area = paintViewModel.Area, Paint = paintViewModel.Paint, Height = paintViewModel.Volume });
+            return Json(new { Success = true, Area = paintViewModel.Area, Paint = paintViewModel.Paint, Volume = paintViewModel.Volume });
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
