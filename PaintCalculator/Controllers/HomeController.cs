@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PaintCalculator.Models;
@@ -26,6 +23,37 @@ namespace PaintCalculator.Controllers
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Calculate([FromBody]PaintModel paintViewModel)
+        {
+            var length = 0M;
+            var width = 0M;
+            var height = 0M;
+            var factor = 3.321M;
+
+            if (!ModelState.IsValid )
+            {
+                return Json(new { Success = false, Message = "Error in calculator." });
+            }
+
+            try
+            {
+                decimal.TryParse(paintViewModel.Length, out length);
+                decimal.TryParse(paintViewModel.Width, out width);
+                decimal.TryParse(paintViewModel.Height, out height);
+                paintViewModel.Area = String.Format("{0:0.#####}", length * width);
+                paintViewModel.Paint = String.Format("{0:0.#####}", 2 * height * ( length + width) * factor);
+                paintViewModel.Volume = String.Format("{0:0.#####}", length * width * height);
+            }
+
+            catch (Exception e)
+            {
+                return Json(new { Success = false, Length = paintViewModel.Length, Message = $"Error calculating length. {e.Message}" });
+            }
+
+            return Json(new { Success = true, Area = paintViewModel.Area, Paint = paintViewModel.Paint, Height = paintViewModel.Volume });
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

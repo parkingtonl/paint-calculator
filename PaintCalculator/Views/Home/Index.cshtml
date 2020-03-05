@@ -1,4 +1,8 @@
 ﻿@*@model PaintCalculator.Models.PaintModel  - Note cannot use this without a working database connection which is not really required      *@
+@*Plan to use TDD Using Angular in due course*@
+<form id="manageForm">
+    @Html.AntiForgeryToken()
+</form>
 <div class="jumbotron text-center">
     <h1>Borwell Software Challenge - Paint Calculator</h1>
     <p>Solution by Lance Parkington 5/03/2020</p>
@@ -29,14 +33,17 @@
         <div class="form-group col-sm-3">
             <label for="Length">Length (m)</label>
             <input type="text" class="form-control" id="txt-length" maxLength="10">
+            @*<input type="text" class="form-control" id="txt-length" value="@Model.Length" maxLength="10"> - Note cannot use this without DbContext*@
         </div>
         <div class="form-group col-sm-3">
             <label for="Width">Width (m)</label>
             <input type="text" class="form-control" id="txt-width" maxLength="10">
+            @*<input type="text" class="form-control" id="txt-length" value="@Model.Width" maxLength="10"> - Note cannot use this without DbContext*@
         </div>
         <div class="form-group col-sm-3">
             <label for="Height">Height (m)</label>
             <input type="text" class="form-control" id="txt-height" maxLength="10">
+            @*<input type="text" class="form-control" id="txt-length" value="@Model.Height" maxLength="10"> - Note cannot use this without DbContext*@
         </div>
         <div class="form-group col-sm-1">
             <label for="Cancel">&nbsp;</label>
@@ -67,18 +74,39 @@
     <script>
         // These are Bootstrap 4 buttons and jQuery is used to wire up the click events using each button id
         $('#btn-submit').on('click', function (e) {
-            $('#txt-area').val('1.1');
-            $('#txt-paint').val('2.2');
-            $('#txt-volume').val('3.3');
-            validate();
-            //if (validate) {
-            //    alert("true");
-            //}
-            //else {
-            //    alert("false");
-            //}
+            var valid = validate();
+            if (valid == true) {
+                var length = $('#txt-length').val();
+                var width = $('#txt-width').val();
+                var height = $('#txt-height').val();
+                var model = new Object();
+                model.length = length;
+                model.width = width;
+                model.height = height;  
+                model.area = 0;
+                model.paint = 0;
+                model.volume = 0;
+                $.ajax({  
+                    type: "POST",  
+                    url: '@Url.Action("Calculate","Home")', // url of MVC Controller and method endpoint
+                    data: JSON.stringify(model),  
+                    contentType: "application/json; charset=utf-8",  
+                    dataType: "json",
+                    async: false,
+                    success: function (data) {
+                        handleResponse(data); // callback pattern should work
+                    },  
+                    failure: function (data) {  
+                  
+                    },  
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            alert("Error Status: " + textStatus + " Error: " + errorThrown);
+                    }
+                });  
+            }
         });
-        $('#btn-cancel').on('click', function (e) {
+
+        $('#btn-cancel').on('click', function (e) { // reset text boxes to empty strings
             $('#txt-length').val('');
             $('#txt-width').val('');
             $('#txt-height').val('');
@@ -86,8 +114,15 @@
             $('#txt-paint').val('');
             $('#txt-volume').val('');
         });
-        function validate() {
-            var regexp = /^\d+\.?\d{0,2}$/; 
+
+        function handleResponse(data) { // updates ui after server returns data
+             $('#txt-area').val(data.Area);
+             $('#txt-paint').val(data.Paint);
+             $('#txt-volume').val(data.Volume);
+        }
+
+        function validate() { // validate input data are decimals
+            var regexp = /^\d+\.?\d{0,3}$/; // This regex matches real number (optional decimal point) to 3 places
             var length = $('#txt-length').val().toString();
             var width = $('#txt-width').val().toString();
             var height = $('#txt-height').val().toString();
@@ -99,7 +134,17 @@
                     }
                 }
             }
-            return valid);
+            if (regexp.test(length) == false) {
+                alert("Length must be decimal (up to 3 places)");
+            }
+            if (regexp.test(width) == false) {
+                alert("Width must be decimal (up to 3 places)");
+            }
+              if (regexp.test(height) == false) {
+                alert("Height must be decimal (up to 3 places)");
+            }
+
+            return valid;
         }
     </script>
 }
