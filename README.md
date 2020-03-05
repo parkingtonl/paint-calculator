@@ -1,7 +1,7 @@
 # borwell-challenge
 Borwell Software Challenge
 
-The repository containing the solution files
+The repository containing the solution files - Lance Parkington 05/03/2020
 
 # Installation 
 
