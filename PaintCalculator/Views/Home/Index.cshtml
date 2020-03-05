@@ -1,4 +1,4 @@
-﻿@*@model PaintCalculator.Models.PaintModel  - Note cannot use this without a working database connection which is not really required      *@
+﻿@*@model PaintCalculator.Models.PaintModel  - Note cannot use this or MVC validation without a working database connection which seems over the top for a calculator - could use jQuery to simulate      *@
 @*Plan to use TDD Using Angular in due course*@
 <form id="manageForm">
     @Html.AntiForgeryToken()
@@ -13,7 +13,7 @@
         <div class="col-sm-12">
             <h3>Information</h3>
             <p>
-                The software is written in Net Core 3.1 (all previous versions are end of life and out of support), using Bootstrap 4 and jQuery, and takes the dimensions (using metric units) of a room as input then outputs the following:
+                The software is written in Net Core 3.1 (all previous versions are end of life and out of support), using Bootstrap 4 and jQuery, and takes the dimensions (using metric units) of a room as input should output the following (ajax problem not fixed):
                 <ul>
                     <li>Area of the floor.</li>
                     <li>Amount of paint required to paint the walls.</li>
@@ -73,14 +73,14 @@
 @section Scripts {
     <script>
         // These are Bootstrap 4 buttons and jQuery is used to wire up the click events using each button id
-        $('#btn-submit').on('click', function (e) {
+        $('#btn-submit').on('click', function (e) { // posts data to server where calculation and unit tests reside - unable to unit test front end in this state
             var valid = validate();
             if (valid == true) {
                 var length = $('#txt-length').val();
                 var width = $('#txt-width').val();
                 var height = $('#txt-height').val();
                 var model = new Object();
-                model.length = length;
+                model.length = length; //initialise frontend viewmodel - ideally same as MVC viewmodel apart from case convention naming
                 model.width = width;
                 model.height = height;  
                 model.area = 0;
@@ -94,7 +94,7 @@
                     dataType: "json",
                     async: false,
                     success: function (data) {
-                        handleResponse(data); // callback pattern should work
+                        handleResponse(data); // callback pattern should work - neither does using promises - bug?
                     },  
                     failure: function (data) {  
                   
@@ -115,7 +115,7 @@
             $('#txt-volume').val('');
         });
 
-        function handleResponse(data) { // updates ui after server returns data
+        function handleResponse(data) { // updates ui after server returns data - doesn't work here
              $('#txt-area').val(data.Area);
              $('#txt-paint').val(data.Paint);
              $('#txt-volume').val(data.Volume);
@@ -133,7 +133,7 @@
                         valid = true;
                     }
                 }
-            }
+            } // user feedback
             if (regexp.test(length) == false) {
                 alert("Length must be decimal (up to 3 places)");
             }

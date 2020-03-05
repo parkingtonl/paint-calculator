@@ -43,9 +43,9 @@ namespace PaintCalculator.Controllers
                 decimal.TryParse(paintViewModel.Length, out length);
                 decimal.TryParse(paintViewModel.Width, out width);
                 decimal.TryParse(paintViewModel.Height, out height);
-                paintViewModel.Area = String.Format("{0:0.#####}", length * width);
-                paintViewModel.Paint = String.Format("{0:0.#####}", 2 * height * ( length + width) * factor); // factor represents the coverage of paint
-                paintViewModel.Volume = String.Format("{0:0.#####}", length * width * height);
+                paintViewModel.Area = String.Format("{0:0.###}", length * width);
+                paintViewModel.Paint = String.Format("{0:0.###}", 2 * height * ( length + width) * factor); // factor represents the coverage of paint
+                paintViewModel.Volume = String.Format("{0:0.###}", length * width * height);
             }
 
             catch (Exception e)
