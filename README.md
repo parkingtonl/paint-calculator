@@ -11,7 +11,7 @@ A pipeline is in progress in Microsoft DevOps in the Azure Portal and could be b
 
 # Discussion of Technologies
 
-Always difficult since everything changes so rapidly, has to be web based and easily deployable to Azure so Net Core 3.1 and Angular make most sense. The front end uses Bootstrap 4 and ate though most donkey work is done in HTML, CSS, and C#. A database would normally be used in an application, and SqlServer or an instance of Sql in Azure a good place to start. I wanted to do some Unit Tests on both Front End and Back End though realised haven't used Karma or Jasamine enough to get one working. So used JQuery and Javascript on its own (living dangerously) since really need a proper javascript framework to do front end testing. Good old MVC using standard routing is fine here
+Always difficult since everything changes so rapidly, has to be web based and easily deployable to Azure so Net Core 3.1 and Angular make most sense. The front end uses Bootstrap 4 and JQuery enabling fully responsive pages on screens/phones and glyphicons can also be used for buttons. Moost donkey work is done in HTML, CSS, and C#. A database would normally be used in an application, and SqlServer or an instance of Sql in Azure a good place to start. I wanted to do some Unit Tests on both Front End and Back End though realised haven't used Karma or Jasamine enough to get one working. So used JQuery and Javascript on its own (living dangerously) since really need a proper javascript framework to do front end testing. Good old MVC using standard routing is fine here
 
 # Meeting the Rdequirements
 
